@@ -25,7 +25,6 @@ fun OnboardingPage(modifier: Modifier = Modifier,onboardingPageItem: OnboardingP
         Image(painter = painterResource(onboardingPageItem.image), contentDescription = null)
         Spacer(modifier=modifier.height(24.dp))
         Text(text = onboardingPageItem.title, fontWeight = FontWeight.Bold,modifier=modifier.padding(8.dp), fontSize = 16.sp)
-        Spacer(modifier=modifier.height(12.dp))
         Text(text = onboardingPageItem.description,modifier=modifier.padding(8.dp), fontSize = 16.sp)
     }
 }

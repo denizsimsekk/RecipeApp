@@ -10,6 +10,12 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import com.example.foodrecipes.R
+import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
+
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -32,7 +38,30 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
+val myCustomFont = FontFamily(
+    Font(R.font.play_fair),
+)
 
+
+fun Typography.applyCustomFontFamily(fontFamily: FontFamily): Typography {
+    return Typography(
+        displayLarge = displayLarge.copy(fontFamily = fontFamily, color = Color.Black),
+        displayMedium = displayMedium.copy(fontFamily = fontFamily, color = Color.Black),
+        displaySmall = displaySmall.copy(fontFamily = fontFamily, color = Color.Black),
+        headlineLarge = headlineLarge.copy(fontFamily = fontFamily, color = Color.Black),
+        headlineMedium = headlineMedium.copy(fontFamily = fontFamily, color = Color.Black),
+        headlineSmall = headlineSmall.copy(fontFamily = fontFamily, color = Color.Black),
+        titleLarge = titleLarge.copy(fontFamily = fontFamily, color = Color.Black),
+        titleMedium = titleMedium.copy(fontFamily = fontFamily, color = Color.Black),
+        titleSmall = titleSmall.copy(fontFamily = fontFamily, color = Color.Black),
+        bodyLarge = bodyLarge.copy(fontFamily = fontFamily, color = Color.Black),
+        bodyMedium = bodyMedium.copy(fontFamily = fontFamily, color = Color.Black),
+        bodySmall = bodySmall.copy(fontFamily = fontFamily, color = Color.Black),
+        labelLarge = labelLarge.copy(fontFamily = fontFamily, color = Color.Black),
+        labelMedium = labelMedium.copy(fontFamily = fontFamily, color = Color.Black),
+        labelSmall = labelSmall.copy(fontFamily = fontFamily, color = Color.Black)
+    )
+}
 @Composable
 fun FoodRecipesTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -49,10 +78,10 @@ fun FoodRecipesTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-
+    val customTypo=androidx.compose.material3.Typography().applyCustomFontFamily(myCustomFont)
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = customTypo,
         content = content
     )
 }

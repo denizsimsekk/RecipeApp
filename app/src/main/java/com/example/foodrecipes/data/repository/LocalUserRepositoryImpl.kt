@@ -11,23 +11,20 @@ import com.example.foodrecipes.utils.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LocalUserRepositoryImpl(private val context: Context) : LocalUserRepository {
+class LocalUserRepositoryImpl(private val dataStore: DataStore<Preferences>) : LocalUserRepository {
     override suspend fun saveAppEntry() {
-        context.dataStore.edit {setting->
-            setting[PreferenceKeys.APP_ENTRY]=true
+        dataStore.edit { setting ->
+            setting[Constants.PreferenceKeys.APP_ENTRY] = true
         }
     }
 
     override fun readAppEntry(): Flow<Boolean> {
-        return context.dataStore.data.map {preferences->
-            preferences[PreferenceKeys.APP_ENTRY] ?: false
+        return dataStore.data.map { preferences ->
+            preferences[Constants.PreferenceKeys.APP_ENTRY] ?: false
 
         }
     }
 }
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = Constants.USER_SETTINGS)
 
-private object PreferenceKeys {
-    val APP_ENTRY = booleanPreferencesKey(Constants.APP_ENTRY)
-}
+

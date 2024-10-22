@@ -16,9 +16,13 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.foodrecipes.presentation.onboarding.OnBoardingViewModel
 import com.example.foodrecipes.presentation.onboarding.OnboardingScreen
 import com.example.foodrecipes.ui.theme.FoodRecipesTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoodRecipesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    OnboardingScreen()
+                    val onBoardingViewModel : OnBoardingViewModel= hiltViewModel()
+                    OnboardingScreen(onBoardingViewModel)
                 }
             }
         }

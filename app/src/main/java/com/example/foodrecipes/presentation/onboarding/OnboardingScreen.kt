@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(viewModel:OnBoardingViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -111,8 +111,8 @@ fun OnboardingScreen() {
                     }
                 }
                 CommonButton(buttonState.value[1]) {
-                    if (pagerState.currentPage == 3) {
-                        //TODO navigate
+                    if (pagerState.currentPage == 2) {
+                        viewModel.saveAppEntry()
                     } else {
                         scope.launch {
 

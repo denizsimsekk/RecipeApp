@@ -41,6 +41,7 @@ android {
     }
 }
 
+val nav_version = "2.8.3"
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -58,18 +59,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation ("androidx.core:core-splashscreen:1.0.0")
-    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation ("com.google.code.gson:gson:2.10.1")
-    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
-
-
-
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }
 
 // Allow references to generated code

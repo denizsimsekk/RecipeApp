@@ -39,9 +39,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.foodrecipes.R
 import com.example.foodrecipes.presentation.common.CommonButton
 import com.example.foodrecipes.presentation.common.CommonTextButton
+import com.example.foodrecipes.presentation.navgraph.Route
 import com.example.foodrecipes.presentation.onboarding.components.OnboardingFoodPage
 import com.example.foodrecipes.presentation.onboarding.components.OnboardingPage
 import com.example.foodrecipes.presentation.onboarding.components.PageIndicator
@@ -51,7 +53,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen(viewModel:OnBoardingViewModel) {
+fun OnboardingScreen(viewModel: OnBoardingViewModel,navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -113,9 +115,9 @@ fun OnboardingScreen(viewModel:OnBoardingViewModel) {
                 CommonButton(buttonState.value[1]) {
                     if (pagerState.currentPage == 2) {
                         viewModel.saveAppEntry()
+                        navController.navigate(Route.HomeScreen.route)
                     } else {
                         scope.launch {
-
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                         }
                     }

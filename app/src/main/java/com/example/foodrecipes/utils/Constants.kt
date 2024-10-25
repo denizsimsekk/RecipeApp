@@ -8,4 +8,6 @@ object Constants {
     object PreferenceKeys {
         val APP_ENTRY = booleanPreferencesKey(Constants.APP_ENTRY)
     }
+    const val BASE_URL="https://api.spoonacular.com/"
+    const val key="77005b6ae77b489db83ef834d2c334ff"
 }

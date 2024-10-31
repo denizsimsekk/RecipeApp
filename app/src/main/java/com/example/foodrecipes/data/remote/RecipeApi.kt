@@ -1,5 +1,6 @@
 package com.example.foodrecipes.data.remote
 
+import com.example.foodrecipes.BuildConfig
 import com.example.foodrecipes.data.model.RecipeResponse
 import com.example.foodrecipes.utils.Constants
 import retrofit2.http.GET
@@ -12,5 +13,5 @@ interface RecipeApi {
 
     @GET("recipes/random")
     @Headers("Content-Type: application/json")
-    suspend fun getRecipes( @Query("apiKey") apiKey: String = Constants.key ):RecipeResponse
+    suspend fun getRecipes( @Query("apiKey") apiKey: String = BuildConfig.RECIPE_API_KEY ):RecipeResponse
 }

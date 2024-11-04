@@ -7,4 +7,5 @@ sealed class ResponseState<T>(
     class Success<T>(data: T) : ResponseState<T>(data = data)
     class Error<T>(errorMessage: String) : ResponseState<T>(message = errorMessage)
     class Loading<T> : ResponseState<T>()
+    class Empty<T> : ResponseState<T>()
 }

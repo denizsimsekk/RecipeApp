@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.foodrecipes.presentation.home.components.RecipeListScreen
 import com.example.foodrecipes.presentation.onboarding.OnBoardingViewModel
 import com.example.foodrecipes.presentation.onboarding.OnboardingScreen
 
@@ -21,7 +22,7 @@ fun NavGraph(navController: NavHostController, startDestination: String=Route.On
             OnboardingScreen(onBoardingViewModel,navController)
         }
         composable(Route.HomeScreen.route) {
-            Text("home page")
+            RecipeListScreen()
         }
     }
 }

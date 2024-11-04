@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(private val getAppEntryUseCase: GetAppEn
             } else {
                 startDestination = Route.OnBoardingScreen.route
             }
-            delay(300)
+            delay(200)
             splashCondition = false
         }.launchIn(viewModelScope)
     }

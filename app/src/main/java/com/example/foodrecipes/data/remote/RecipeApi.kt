@@ -13,5 +13,5 @@ interface RecipeApi {
 
     @GET("recipes/random")
     @Headers("Content-Type: application/json")
-    suspend fun getRecipes( @Query("apiKey") apiKey: String = BuildConfig.RECIPE_API_KEY ):RecipeResponse
+    suspend fun getRecipes( @Query("apiKey") apiKey: String = BuildConfig.RECIPE_API_KEY, @Query("number") number :Int=30 ):RecipeResponse
 }

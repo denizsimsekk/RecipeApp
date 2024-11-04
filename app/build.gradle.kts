@@ -89,6 +89,9 @@ dependencies {
     // optional - Jetpack Compose integration
     implementation("androidx.paging:paging-compose:3.3.2")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc02")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc02")
+
 }
 
 // Allow references to generated code

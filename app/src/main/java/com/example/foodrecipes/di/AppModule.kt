@@ -14,6 +14,7 @@ import com.example.foodrecipes.domain.repository.RecipeRepository
 import com.example.foodrecipes.domain.usecase.GetAppEntryUseCase
 import com.example.foodrecipes.domain.usecase.GetRecipeUseCase
 import com.example.foodrecipes.domain.usecase.SaveAppEntryUseCase
+import com.example.foodrecipes.domain.usecase.SearchRecipeUseCase
 import com.example.foodrecipes.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -70,4 +71,7 @@ object AppModule {
     fun provideGetRecipeUseCase(recipeRepository: RecipeRepository) : GetRecipeUseCase = GetRecipeUseCase(recipeRepository)
 
 
+    @Provides
+    @Singleton
+    fun provideSearchRecipeUseCase(recipeRepository: RecipeRepository) : SearchRecipeUseCase = SearchRecipeUseCase(recipeRepository)
 }

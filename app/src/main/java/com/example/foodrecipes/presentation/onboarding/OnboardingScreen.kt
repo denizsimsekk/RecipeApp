@@ -39,10 +39,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.foodrecipes.R
 import com.example.foodrecipes.presentation.common.CommonButton
 import com.example.foodrecipes.presentation.common.CommonTextButton
+import com.example.foodrecipes.presentation.home.HomeViewModel
 import com.example.foodrecipes.presentation.navgraph.Route
 import com.example.foodrecipes.presentation.onboarding.components.OnboardingFoodPage
 import com.example.foodrecipes.presentation.onboarding.components.OnboardingPage
@@ -53,7 +55,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen(viewModel: OnBoardingViewModel,navController: NavController) {
+fun OnboardingScreen(viewModel: OnBoardingViewModel = hiltViewModel(),navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -28,8 +28,5 @@ fun NavGraph(navController: NavHostController, startDestination: String=Route.On
         composable(Route.SearchScreen.route) {
             SearchScreen()
         }
-        composable(Route.DetailScreen.route) {
-            DetailScreen()
-        }
     }
 }

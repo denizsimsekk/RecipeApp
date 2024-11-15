@@ -58,6 +58,7 @@ android {
 
 val nav_version = "2.8.3"
 val paging_version = "3.3.2"
+val room_version = "2.6.1"
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -86,11 +87,13 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.paging:paging-runtime:$paging_version")
-    // optional - Jetpack Compose integration
     implementation("androidx.paging:paging-compose:3.3.2")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc02")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc02")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
 }
 

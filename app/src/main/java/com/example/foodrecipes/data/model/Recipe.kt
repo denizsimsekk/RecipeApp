@@ -1,5 +1,9 @@
 package com.example.foodrecipes.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "Recipe")
 data class Recipe(
     val aggregateLikes: Int?=null,
     val analyzedInstructions: List<AnalyzedInstruction>?=null,
@@ -14,7 +18,7 @@ data class Recipe(
     val gaps: String?=null,
     val glutenFree: Boolean?=null,
     val healthScore: Int?=null,
-    val id: Int?=null,
+    @PrimaryKey val id: Int?=null,
     val image: String?=null,
     val imageType: String?=null,
     val instructions: String?=null,

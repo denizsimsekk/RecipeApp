@@ -19,14 +19,14 @@ class MainViewModel @Inject constructor(private val getAppEntryUseCase: GetAppEn
 
     var splashCondition by mutableStateOf(true)
 
-    var startDestination by mutableStateOf(Route.OnBoardingScreen.route)
+    var startDestination by mutableStateOf(Route.AppStartNavigation.route)
 
     fun getAppEntry() {
         getAppEntryUseCase.invoke().onEach { shouldStartFromHomeScreen ->
             if (shouldStartFromHomeScreen) {
-                startDestination = Route.HomeScreen.route
+                startDestination = Route.RecipeNavigation.route
             } else {
-                startDestination = Route.OnBoardingScreen.route
+                startDestination = Route.AppStartNavigation.route
             }
             delay(200)
             splashCondition = false

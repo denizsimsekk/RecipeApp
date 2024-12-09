@@ -19,10 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.foodrecipes.R
-import com.example.foodrecipes.common.ResponseState
 import com.example.foodrecipes.data.model.Recipe
 import com.example.foodrecipes.presentation.home.components.RecipeCard
-import com.example.foodrecipes.presentation.home.components.ShimmerEffect
 
 @Composable
 fun BookmarkScreen(viewModel: BookmarkViewModel= hiltViewModel()){

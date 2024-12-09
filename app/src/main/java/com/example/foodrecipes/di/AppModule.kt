@@ -84,7 +84,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsDatabase(
+    fun provideRecipeDatabase(
         application: Application
     ): RecipeDatabase {
         return Room.databaseBuilder(

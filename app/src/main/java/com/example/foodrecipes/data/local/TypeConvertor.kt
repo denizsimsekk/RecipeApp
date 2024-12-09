@@ -4,6 +4,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.example.foodrecipes.data.model.AnalyzedInstruction
 import com.example.foodrecipes.data.model.ExtendedIngredient
+import com.google.gson.reflect.TypeToken
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -28,5 +29,17 @@ class TypeConvertor {
     @TypeConverter
     fun toExtendIngredientsList(data: String): List<ExtendedIngredient> {
         return if (data.isEmpty()) emptyList() else Json.decodeFromString(data)
+    }
+
+    @TypeConverter
+    fun fromStringList(value: List<String>?): String {
+        return Json.encodeToString(value)
+    }
+
+    @TypeConverter
+    fun toStringList(value: String?): List<String>? {
+        return if (value != null) {
+            return if (value.isEmpty()) emptyList() else Json.decodeFromString(value)
+        } else listOf()
     }
 }

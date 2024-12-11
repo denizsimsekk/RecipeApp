@@ -5,8 +5,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,11 +28,21 @@ import coil3.request.ImageRequest
 import com.example.foodrecipes.R
 import com.example.foodrecipes.data.model.Recipe
 import com.example.foodrecipes.presentation.detail.components.TopBar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 @Composable
-fun DetailScreen(recipe:Recipe,navigate:()->Unit) {
+fun DetailScreen(recipeJson: String, navigate: () -> Unit) {
+
+    val type = object : TypeToken<Recipe>() {}.type
+    val recipe: Recipe = Gson().fromJson(recipeJson, type)
+
     val context = LocalContext.current
-    Column (modifier = Modifier.fillMaxWidth().background(color = colorResource(R.color.light_pink))){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(R.color.light_pink))
+    ) {
         TopBar(onShareClick = {
             Intent(Intent.ACTION_SEND).also {
                 it.putExtra(Intent.EXTRA_TEXT, recipe.sourceUrl)
@@ -59,7 +74,8 @@ fun DetailScreen(recipe:Recipe,navigate:()->Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .clip(MaterialTheme.shapes.medium).background(color = Color.Black),
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(color = Color.Black),
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.height(15.dp))

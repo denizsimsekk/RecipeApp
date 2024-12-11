@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,21 +23,28 @@ import com.example.foodrecipes.data.model.Recipe
 import com.example.foodrecipes.presentation.home.components.RecipeCard
 
 @Composable
-fun BookmarkScreen(viewModel: BookmarkViewModel= hiltViewModel()){
+fun BookmarkScreen(
+    viewModel: BookmarkViewModel = hiltViewModel(),
+    navigateToDetails: (recipe: Recipe) -> Unit
+) {
 
     val recipeListResponse: List<Recipe> by viewModel.recipe.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.getFavoriteRecipes()
     }
-    Column(modifier = Modifier.background(colorResource(R.color.light_pink))) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(colorResource(R.color.light_pink))) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 16.dp).padding(WindowInsets.systemBars.asPaddingValues())
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(WindowInsets.systemBars.asPaddingValues())
         ) {
             items(recipeListResponse.size) {
-                RecipeCard(recipeListResponse[it], modifier = Modifier)
+                RecipeCard(recipeListResponse[it], modifier = Modifier,{navigateToDetails(recipeListResponse[it])})
             }
         }
 

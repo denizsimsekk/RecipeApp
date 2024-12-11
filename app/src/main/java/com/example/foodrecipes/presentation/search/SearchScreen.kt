@@ -37,14 +37,14 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(WindowInsets.systemBars.asPaddingValues())
             .background(color = colorResource(R.color.light_pink))
     ) {
         val searchState = viewModel.searchState.collectAsState()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(WindowInsets.systemBars.asPaddingValues())
+                .padding(horizontal = 8.dp)
                 .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
         ) {
             TextField(

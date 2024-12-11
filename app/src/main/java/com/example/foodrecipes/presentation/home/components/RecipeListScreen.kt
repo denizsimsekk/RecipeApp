@@ -27,6 +27,7 @@ import com.example.foodrecipes.presentation.home.HomeViewModel
 @Composable
 fun RecipeListScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    navigateToDetails:(recipe:Recipe)->Unit
 ) {
     val recipeListResponse: ResponseState<List<Recipe>> by homeViewModel.recipe.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -53,7 +54,9 @@ fun RecipeListScreen(
                 ) {
                     items(recipeListResponse.data?.size ?: 0) {
                         recipeListResponse.data?.get(it)?.let { recipe ->
-                            RecipeCard(recipe, modifier = Modifier)
+                            RecipeCard(recipe, modifier = Modifier,{
+                                navigateToDetails(recipe)
+                            })
                         }
                     }
                 }

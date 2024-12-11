@@ -17,13 +17,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.foodrecipes.R
+import com.example.foodrecipes.data.model.Recipe
 import com.example.foodrecipes.presentation.bookmark.BookmarkScreen
+import com.example.foodrecipes.presentation.detail.DetailScreen
 import com.example.foodrecipes.presentation.home.components.RecipeListScreen
 import com.example.foodrecipes.presentation.navgraph.Route
 import com.example.foodrecipes.presentation.onboarding.OnboardingScreen
 import com.example.foodrecipes.presentation.recipenavigator.components.BottomNavigationItem
 import com.example.foodrecipes.presentation.recipenavigator.components.RecipeBottomNavigation
 import com.example.foodrecipes.presentation.search.SearchScreen
+import com.google.gson.Gson
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,15 +67,29 @@ fun RecipeNavigator() {
         {
             composable(Route.HomeScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                RecipeListScreen()
+                RecipeListScreen(navigateToDetails = {recipe->
+                    navigateToDetails(navController,recipe)
+                })
             }
             composable(Route.SearchScreen.route) {
                 OnBackClickStateSaver(navController = navController)
                 SearchScreen()
             }
+            composable(Route.DetailScreen.route) {
+                OnBackClickStateSaver(navController = navController)
+                navController.previousBackStackEntry?.savedStateHandle?.get<String?>("recipe")
+                    ?.let { recipe ->
+                        DetailScreen(
+                            recipe,
+                            {navController.navigateUp()}
+                        )
+                    }
+            }
             composable(Route.BookmarkScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                BookmarkScreen()
+                BookmarkScreen(navigateToDetails = {recipe->
+                    navigateToDetails(navController,recipe)
+                })
             }
         }
     }
@@ -99,4 +116,12 @@ private fun navigateToTab(navController: NavController, route: String) {
         launchSingleTop = true
         restoreState = true
     }
+}
+
+private fun navigateToDetails(navController: NavController, recipe: Recipe) {
+    val json = Gson().toJson(recipe)
+    navController.currentBackStackEntry?.savedStateHandle?.set("recipe", json)
+    navController.navigate(
+        route = Route.DetailScreen.route
+    )
 }

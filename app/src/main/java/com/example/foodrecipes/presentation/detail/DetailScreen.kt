@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -23,20 +25,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.foodrecipes.R
+import com.example.foodrecipes.common.ResponseState
 import com.example.foodrecipes.data.model.Recipe
 import com.example.foodrecipes.presentation.detail.components.TopBar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @Composable
-fun DetailScreen(recipeJson: String, navigate: () -> Unit) {
-
+fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewModel= hiltViewModel()) {
+    val isSaved =viewModel.isSaved.collectAsStateWithLifecycle()
     val type = object : TypeToken<Recipe>() {}.type
     val recipe: Recipe = Gson().fromJson(recipeJson, type)
-
+   LaunchedEffect(null) {
+        viewModel.getRecipeFromRoom(recipe)
+    }
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -53,7 +61,7 @@ fun DetailScreen(recipeJson: String, navigate: () -> Unit) {
             }
         },
             onBookMarkClick = {
-                //TODO save recipe
+                viewModel.onEvent(recipe)
             },
             onNavigateBackClick = {
                 navigate()

@@ -18,7 +18,8 @@ import com.example.foodrecipes.domain.repository.RecipeRepository
 import com.example.foodrecipes.domain.usecase.DeleteRecipeUseCase
 import com.example.foodrecipes.domain.usecase.GetAppEntryUseCase
 import com.example.foodrecipes.domain.usecase.GetFavoriteRecipesUseCase
-import com.example.foodrecipes.domain.usecase.GetRecipeUseCase
+import com.example.foodrecipes.domain.usecase.GetRecipeFromRoomUseCase
+import com.example.foodrecipes.domain.usecase.GetRecipesUseCase
 import com.example.foodrecipes.domain.usecase.InsertRecipeUseCase
 import com.example.foodrecipes.domain.usecase.SaveAppEntryUseCase
 import com.example.foodrecipes.domain.usecase.SearchRecipeUseCase
@@ -75,7 +76,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetRecipeUseCase(recipeRepository: RecipeRepository) : GetRecipeUseCase = GetRecipeUseCase(recipeRepository)
+    fun provideGetRecipeUseCase(recipeRepository: RecipeRepository) : GetRecipesUseCase = GetRecipesUseCase(recipeRepository)
 
 
     @Provides
@@ -115,6 +116,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideGetFavoriteRecipesUseCase(dao:RecipeDao) : GetFavoriteRecipesUseCase = GetFavoriteRecipesUseCase(dao)
+
+    @Provides
+    @Singleton
+    fun provideGetRecipeFromRoomUseCase(dao:RecipeDao) : GetRecipeFromRoomUseCase = GetRecipeFromRoomUseCase(dao)
 
 
 }

@@ -117,7 +117,7 @@ fun OnboardingScreen(viewModel: OnBoardingViewModel = hiltViewModel(),navControl
                 CommonButton(buttonState.value[1]) {
                     if (pagerState.currentPage == 2) {
                         viewModel.saveAppEntry()
-                        navController.navigate(Route.HomeScreen.route)
+                        navController.navigate(Route.RecipeNavigation.route)
                     } else {
                         scope.launch {
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)

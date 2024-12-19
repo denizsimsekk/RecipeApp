@@ -73,7 +73,8 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(2.dp)
+                    .padding(2.dp),
+                singleLine = true
             )
         }
         searchState.value.recipes.let { list ->

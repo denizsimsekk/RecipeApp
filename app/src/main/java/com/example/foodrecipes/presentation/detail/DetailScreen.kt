@@ -65,7 +65,8 @@ fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewM
             },
             onNavigateBackClick = {
                 navigate()
-            })
+            },
+            isBookmarked = isSaved.value)
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(

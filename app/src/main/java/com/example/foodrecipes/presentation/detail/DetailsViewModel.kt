@@ -32,9 +32,11 @@ class DetailsViewModel @Inject constructor(
             val recipeFromRoom = getRecipeFromRoomUseCase.invoke(recipe.sourceUrl ?: "")
             if (recipeFromRoom == null) {
                 insertRecipeUseCase.invoke(recipe)
+                _isSaved.value=true
 
             } else {
                 deleteRecipeUseCase.invoke(recipe)
+                _isSaved.value=false
             }
         }
 

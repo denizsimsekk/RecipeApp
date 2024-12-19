@@ -1,5 +1,8 @@
 package com.example.foodrecipes.data.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Ingredient(
     val id: Int,
     val image: String,

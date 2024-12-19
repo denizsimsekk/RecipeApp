@@ -1,7 +1,8 @@
 package com.example.foodrecipes.data.model
 
-import android.os.Parcelable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Metric(
     val amount: Double,
     val unitLong: String,

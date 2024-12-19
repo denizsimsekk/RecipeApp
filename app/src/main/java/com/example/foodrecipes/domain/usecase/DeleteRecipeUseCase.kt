@@ -5,5 +5,5 @@ import com.example.foodrecipes.data.model.Recipe
 import javax.inject.Inject
 
 class DeleteRecipeUseCase @Inject constructor(private val dao: RecipeDao) {
-    suspend operator fun invoke(recipe: Recipe)=dao.insertRecipe(recipe)
+    suspend operator fun invoke(recipe: Recipe)=dao.delete(recipe)
 }

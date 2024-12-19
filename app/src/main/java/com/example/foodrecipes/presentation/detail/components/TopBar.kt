@@ -20,9 +20,16 @@ import com.example.foodrecipes.ui.theme.FoodRecipesTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(onNavigateBackClick:()->Unit,onBookMarkClick:()->Unit,onShareClick:()->Unit) {
+fun TopBar(
+    onNavigateBackClick: () -> Unit,
+    onBookMarkClick: () -> Unit,
+    onShareClick: () -> Unit,
+    isBookmarked: Boolean
+) {
     TopAppBar(
-        modifier = Modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = Color.Transparent,
             actionIconContentColor = colorResource(id = R.color.gray),
@@ -32,14 +39,27 @@ fun TopBar(onNavigateBackClick:()->Unit,onBookMarkClick:()->Unit,onShareClick:()
         navigationIcon = {
             IconButton(onClick = {
                 onNavigateBackClick()
-            }) { Icon(painterResource(R.drawable.baseline_arrow_back_ios_new_24), contentDescription = null) }
+            }) {
+                Icon(
+                    painterResource(R.drawable.baseline_arrow_back_ios_new_24),
+                    contentDescription = null
+                )
+            }
         },
         actions = {
             IconButton(onClick = onBookMarkClick) {
-                Icon(
-                    painter = painterResource(id = R.drawable.outline_bookmark_border_24),
-                    contentDescription = null
-                )
+                if (isBookmarked) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_bookmark_24),
+                        contentDescription = null
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.outline_bookmark_border_24),
+                        contentDescription = null
+                    )
+                }
+
             }
             IconButton(onClick = onShareClick) {
                 Icon(
@@ -52,7 +72,7 @@ fun TopBar(onNavigateBackClick:()->Unit,onBookMarkClick:()->Unit,onShareClick:()
 
     )
 }
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun DetailsTopBarPreview() {
     FoodRecipesTheme(dynamicColor = false) {
@@ -67,4 +87,4 @@ fun DetailsTopBarPreview() {
             }
         ) 
     }
-}
+}*/

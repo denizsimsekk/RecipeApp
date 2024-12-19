@@ -1,6 +1,7 @@
 package com.example.foodrecipes.presentation.recipenavigator
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -54,41 +55,62 @@ fun RecipeNavigator() {
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        RecipeBottomNavigation(recipeNavigationItems, selectedItem, onItemClick = {index->
-            when(index){
-                0-> navigateToTab(navController, route = Route.HomeScreen.route)
-                1-> navigateToTab(navController, route = Route.SearchScreen.route)
-                2-> navigateToTab(navController, route = Route.BookmarkScreen.route)
+        RecipeBottomNavigation(recipeNavigationItems, selectedItem, onItemClick = { index ->
+            when (index) {
+                0 -> navigateToTab(navController, route = Route.HomeScreen.route)
+                1 -> navigateToTab(navController, route = Route.SearchScreen.route)
+                2 -> navigateToTab(navController, route = Route.BookmarkScreen.route)
             }
 
         })
     }) {
-        NavHost(navController, Route.HomeScreen .route)
+        NavHost(navController, Route.HomeScreen.route)
         {
             composable(Route.HomeScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                RecipeListScreen(navigateToDetails = {recipe->
-                    navigateToDetails(navController,recipe)
+                RecipeListScreen(navigateToDetails = { recipe ->
+                    navigateToDetails(navController, recipe)
                 })
             }
             composable(Route.SearchScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                SearchScreen()
+                SearchScreen(navigateFun = { id ->
+                    navigateToDetails(navController, null, id = id)
+                })
             }
             composable(Route.DetailScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                navController.previousBackStackEntry?.savedStateHandle?.get<String?>("recipe")
-                    ?.let { recipe ->
-                        DetailScreen(
-                            recipe,
-                            {navController.navigateUp()}
-                        )
+                navController.previousBackStackEntry?.savedStateHandle?.let { savedStateHandle ->
+                    val recipe = savedStateHandle.get<String?>("recipe")
+                    val id = savedStateHandle.get<Int?>("id")
+                    when {
+                        recipe != null -> {
+                            DetailScreen(
+                                recipeJson = recipe,
+                                recipeId = null,
+                                navigate = { navController.navigateUp() }
+                            )
+                        }
+
+                        id != null -> {
+                            DetailScreen(
+                                recipeJson = null,
+                                recipeId = id,
+                                navigate = { navController.navigateUp() }
+                            )
+                        }
+
+                        else -> {
+                            // Handle the case where neither recipe nor id is available
+                            Log.e("Navigation", "No valid data found for recipe or id")
+                        }
                     }
+                }
             }
             composable(Route.BookmarkScreen.route) {
                 OnBackClickStateSaver(navController = navController)
-                BookmarkScreen(navigateToDetails = {recipe->
-                    navigateToDetails(navController,recipe)
+                BookmarkScreen(navigateToDetails = { recipe ->
+                    navigateToDetails(navController, recipe)
                 })
             }
         }
@@ -118,9 +140,13 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController, recipe: Recipe) {
+private fun navigateToDetails(navController: NavController, recipe: Recipe?, id: Int? = null) {
     val json = Gson().toJson(recipe)
-    navController.currentBackStackEntry?.savedStateHandle?.set("recipe", json)
+    if (recipe != null) {
+        navController.currentBackStackEntry?.savedStateHandle?.set("recipe", json)
+    } else {
+        navController.currentBackStackEntry?.savedStateHandle?.set("id", id)
+    }
     navController.navigate(
         route = Route.DetailScreen.route
     )

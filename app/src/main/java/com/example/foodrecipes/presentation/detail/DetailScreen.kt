@@ -38,12 +38,17 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @Composable
-fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewModel= hiltViewModel()) {
-    val isSaved =viewModel.isSaved.collectAsStateWithLifecycle()
-    val type = object : TypeToken<Recipe>() {}.type
-    val recipe: Recipe = Gson().fromJson(recipeJson, type)
-   LaunchedEffect(null) {
-        viewModel.getRecipeFromRoom(recipe)
+fun DetailScreen(
+    recipeJson: String?,
+    recipeId:Int?,
+    navigate: () -> Unit,
+    viewModel: DetailsViewModel = hiltViewModel()
+) {
+    val isSaved = viewModel.isSaved.collectAsStateWithLifecycle()
+    val recipe = viewModel.recipe.collectAsStateWithLifecycle().value.data
+
+    LaunchedEffect(null) {
+        viewModel.getRecipe(recipeJson,recipeId)
     }
     val context = LocalContext.current
     Column(
@@ -51,22 +56,24 @@ fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewM
             .fillMaxSize()
             .background(color = colorResource(R.color.light_pink))
     ) {
-        TopBar(onShareClick = {
-            Intent(Intent.ACTION_SEND).also {
-                it.putExtra(Intent.EXTRA_TEXT, recipe.sourceUrl)
-                it.type = "text/plain"
-                if (it.resolveActivity(context.packageManager) != null) {
-                    context.startActivity(it)
+        TopBar(
+            onShareClick = {
+                Intent(Intent.ACTION_SEND).also {
+                    it.putExtra(Intent.EXTRA_TEXT, recipe?.sourceUrl)
+                    it.type = "text/plain"
+                    if (it.resolveActivity(context.packageManager) != null) {
+                        context.startActivity(it)
+                    }
                 }
-            }
-        },
+            },
             onBookMarkClick = {
-                viewModel.onEvent(recipe)
+                viewModel.onEvent(recipe?:Recipe())
             },
             onNavigateBackClick = {
                 navigate()
             },
-            isBookmarked = isSaved.value)
+            isBookmarked = isSaved.value
+        )
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(
@@ -77,7 +84,7 @@ fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewM
         ) {
             item {
                 AsyncImage(
-                    model = ImageRequest.Builder(context = context).data(recipe.image)
+                    model = ImageRequest.Builder(context = context).data(recipe?.image)
                         .build(),
                     contentDescription = null,
                     modifier = Modifier
@@ -89,11 +96,11 @@ fun DetailScreen(recipeJson: String, navigate: () -> Unit,viewModel:DetailsViewM
                 )
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
-                    text = recipe.title.toString(),
+                    text = recipe?.title.toString(),
                     style = MaterialTheme.typography.displaySmall,
                 )
                 Text(
-                    text = recipe.instructions.toString(),
+                    text = recipe?.instructions.toString(),
                     style = MaterialTheme.typography.bodyMedium,
 
                     )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -27,7 +29,7 @@ import com.example.foodrecipes.presentation.home.HomeViewModel
 @Composable
 fun RecipeListScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    navigateToDetails:(recipe:Recipe)->Unit
+    navigateToDetails: (recipe: Recipe) -> Unit
 ) {
     val recipeListResponse: ResponseState<List<Recipe>> by homeViewModel.recipe.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -42,7 +44,14 @@ fun RecipeListScreen(
             }
 
             is ResponseState.Error -> {
-                Text("error")
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("error")
+                }
+
             }
 
             is ResponseState.Success -> {
@@ -50,11 +59,13 @@ fun RecipeListScreen(
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(horizontal = 16.dp).padding(WindowInsets.systemBars.asPaddingValues())
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(WindowInsets.systemBars.asPaddingValues())
                 ) {
                     items(recipeListResponse.data?.size ?: 0) {
                         recipeListResponse.data?.get(it)?.let { recipe ->
-                            RecipeCard(recipe, modifier = Modifier,{
+                            RecipeCard(recipe, modifier = Modifier, {
                                 navigateToDetails(recipe)
                             })
                         }

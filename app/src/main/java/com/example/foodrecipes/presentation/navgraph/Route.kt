@@ -6,7 +6,8 @@ enum class Screen
     HOME,
     SEARCH,
     DETAIL,
-    BOOKMARK
+    BOOKMARK,
+    SEARCH_RESULT_CARD
 }
 
 
@@ -17,6 +18,7 @@ sealed class Route (val route:String){
     object SearchScreen:Route(Screen.SEARCH.name)
     object DetailScreen:Route(Screen.DETAIL.name)
     object BookmarkScreen:Route(Screen.BOOKMARK.name)
+    object SearchResultCard:Route(Screen.SEARCH_RESULT_CARD.name)
     object RecipeNavigation : Route(route = "recipeNavigation")
     object RecipeNavigatorScreen : Route(route = "recipeNavigatorScreen")
     object AppStartNavigation : Route(route = "appStartNavigation")

@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.foodrecipes.R
 @Composable
-fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(viewModel: SearchViewModel = hiltViewModel(),navigateFun:(recipeId:Int)->Unit) {
 
     Column(
         modifier = Modifier
@@ -86,7 +86,9 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             ) {
                 items(list?.size ?: 0) {
                     list?.get(it)?.let { result ->
-                        SearchResultCard(result, modifier = Modifier)
+                        SearchResultCard(result, modifier = Modifier,{
+                            navigateFun(result.id)
+                        })
                     }
                 }
             }

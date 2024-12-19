@@ -1,6 +1,7 @@
 package com.example.foodrecipes.presentation.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +29,7 @@ import com.example.foodrecipes.R
 import com.example.foodrecipes.data.model.Result
 
 @Composable
-fun SearchResultCard(result: Result, modifier: Modifier) {
+fun SearchResultCard(result: Result, modifier: Modifier,navigate:()->Unit) {
     val context = LocalContext.current
     Row(
         modifier
@@ -40,7 +41,7 @@ fun SearchResultCard(result: Result, modifier: Modifier) {
                     R.color.light_blue
                 )
             )
-            .padding(12.dp), verticalAlignment = Alignment.CenterVertically
+            .padding(12.dp).clickable { navigate() }, verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context).data(result.image)

@@ -31,4 +31,14 @@ class RecipeRepositoryImpl @Inject constructor(private val recipeApi: RecipeApi)
             emit(ResponseState.Error(it.localizedMessage.toString()))
         }
     }
+
+    override suspend fun getRecipe(recipeId: Int): Flow<ResponseState<Recipe>> {
+        return flow {
+            emit(ResponseState.Loading())
+            val response=recipeApi.getRecipe(recipeId = recipeId)
+            emit(ResponseState.Success(response))
+        }.catch {
+            emit(ResponseState.Error(it.localizedMessage.toString()))
+        }
+    }
 }

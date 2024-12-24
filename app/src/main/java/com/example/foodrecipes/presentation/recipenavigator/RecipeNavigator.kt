@@ -101,7 +101,6 @@ fun RecipeNavigator() {
                         }
 
                         else -> {
-                            // Handle the case where neither recipe nor id is available
                             Log.e("Navigation", "No valid data found for recipe or id")
                         }
                     }

@@ -28,7 +28,7 @@ fun Modifier.shimmerEffect() = composed {
         initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1000),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = ""
     ).value
     background(color = colorResource(id = R.color.gray).copy(alpha = alpha))
 }

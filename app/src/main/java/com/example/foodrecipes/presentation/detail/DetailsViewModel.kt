@@ -62,19 +62,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-   /* private fun getRecipe(jsonString: String?, id: Int?) {
-        viewModelScope.launch {
-            if (!jsonString.isNullOrEmpty()) {
-                // Parse the JSON string
-                val recipe = Gson().fromJson(jsonString, Recipe::class.java)
-                _recipe.value = ResponseState.Success(recipe)
-            } else if (id != null) {
-                getRecipeUseCase.invoke(id).collect {
-                    _recipe.value=it
-                }
-            }
-        }
-    }*/
 
 
 }

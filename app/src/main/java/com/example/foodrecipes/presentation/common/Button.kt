@@ -21,7 +21,7 @@ fun CommonButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.gray)),
-        shape = RoundedCornerShape(4.dp) // Set the corner radius here
+        shape = RoundedCornerShape(4.dp)
     ) {
         Text(text, color = Color.White)
     }

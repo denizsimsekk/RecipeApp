@@ -14,19 +14,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookmarkViewModel @Inject constructor(private val getFavoriteRecipesUseCase: GetFavoriteRecipesUseCase,
-    private val deleteRecipeUseCase: DeleteRecipeUseCase,
-    private val insertRecipeUseCase: InsertRecipeUseCase):ViewModel() {
+class BookmarkViewModel @Inject constructor(private val getFavoriteRecipesUseCase: GetFavoriteRecipesUseCase) :
+    ViewModel() {
 
-    private val _recipes= MutableStateFlow<List<Recipe>>(listOf())
-    val recipe : StateFlow<List<Recipe>> =_recipes
+    private val _recipes = MutableStateFlow<List<Recipe>>(listOf())
+    val recipe: StateFlow<List<Recipe>> = _recipes
 
     init {
         getFavoriteRecipes()
     }
-    fun getFavoriteRecipes(){
+
+    fun getFavoriteRecipes() {
         viewModelScope.launch {
-            getFavoriteRecipesUseCase.invoke().collect{response->
+            getFavoriteRecipesUseCase.invoke().collect { response ->
                 _recipes.emit(response)
             }
         }

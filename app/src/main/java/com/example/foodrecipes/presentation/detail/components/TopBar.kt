@@ -72,19 +72,3 @@ fun TopBar(
 
     )
 }
-/*@Preview(showBackground = true)
-@Composable
-fun DetailsTopBarPreview() {
-    FoodRecipesTheme(dynamicColor = false) {
-        TopBar(onNavigateBackClick = {
-
-        },
-            onShareClick = {
-
-            },
-            onBookMarkClick = {
-
-            }
-        ) 
-    }
-}*/

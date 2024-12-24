@@ -52,8 +52,6 @@ import com.example.foodrecipes.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(viewModel: OnBoardingViewModel = hiltViewModel(),navController: NavController) {
     Column(
